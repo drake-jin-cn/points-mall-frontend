@@ -32,11 +32,17 @@
 - **i18n** — next-intl bilingual (EN/ZH), timezone auto-sync, multi-currency format, GDPR cookie consent
 - **Safari Compatibility** — CSS flex fixes, SameSite Cookie handling, Date parsing polyfills
 
+## Why This Tech Stack
+
+Next.js 14 with the App Router is the current mainstream full-stack React framework. The App Router enables mixing SSR, SSG, ISR, and CSR rendering strategies at the page level — which is exactly what this project needs: the product grid benefits from ISR (5-minute revalidation), the employee dashboard needs SSR (fresh data per request), and the notification bell needs CSR (real-time without full-page reload).
+
+The App Router's `route.ts` API routes also mean the BFF health check lives in the same codebase as the UI, keeping the frontend self-contained for development and testing.
+
 ## Tech Stack
 
 | Layer | Technology |
 |-------|------------|
-| Framework | Next.js 14 (App Router), React 18, TypeScript |
+| Framework | Next.js 16 (App Router), React 19, TypeScript 5.8 |
 | Styling | TailwindCSS |
 | State | Zustand + React Query |
 | Forms | React Hook Form + Zod |
