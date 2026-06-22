@@ -1,2 +1,65 @@
 # points-mall-frontend
-Next.js based frontend repository for employee points mall, supports RBAC permission system, data visualization dashboard and responsive business pages.
+
+> Next.js 14 App Router application — the main user-facing product. Consumes `points-mall-frontend-base` for all shared UI primitives and calls only the BFF gateway for data.
+
+## Pages & Modules
+
+| Module | Key Pages | Rendering |
+|--------|-----------|----------|
+| Auth | Login (email + GitHub OAuth), callback | CSR |
+| Employee Dashboard | Personal points balance, attendance status, announcement | SSR |
+| Attendance | Check-in, attendance history, calendar view | SSR |
+| Points Ledger | Transaction history, type filter, date range | SSR |
+| Points Mall | Product grid, search, category filter | ISR (5 min revalidate) |
+| Product Detail | Product info, stock, redeem action | ISR |
+| Order Center | My orders, status timeline | SSR |
+| Notification Center | Bell dropdown, notification list, mark-as-read | CSR |
+| Admin Dashboard | KPI banner, 4 chart panels, date range picker | SSR |
+| Admin Management | Employee list, attendance admin, points manual adjustment | SSR |
+| System Config | Dynamic menu editor, announcements, feature flags | SSR |
+| Data Reports | Chart panels, export button (Excel) | SSR |
+
+## Key Frontend Capabilities
+
+- **Three-Level RBAC** — route guard (Next Middleware) + page-level 403 + button-level permission hook
+- **React Query** — server state management: auto-cache, optimistic updates, window-focus refetch, parallel/serial fetching
+- **Zustand** — modular global state: `useAuthStore`, `useThemeStore`, `useConfigStore`; persisted across page refreshes
+- **Silent Token Refresh** — 401 interceptor in Axios silently reuses refresh token; user session never drops unexpectedly
+- **Error Boundaries** — component-level `ErrorBoundary` + Next global `error.tsx` + runtime `window.onerror` capture
+- **Large File Upload** — Blob slice chunked upload, progress bar, resume-on-failure
+- **SSG / ISR / SSR** — rendering strategy chosen per page based on data freshness requirements
+- **Full SEO** — Next Metadata API (static + dynamic), OG tags, `sitemap.xml`, `robots.txt`, JSON-LD structured data
+- **i18n** — next-intl bilingual (EN/ZH), timezone auto-sync, multi-currency format, GDPR cookie consent
+- **Safari Compatibility** — CSS flex fixes, SameSite Cookie handling, Date parsing polyfills
+
+## Tech Stack
+
+| Layer | Technology |
+|-------|------------|
+| Framework | Next.js 14 (App Router), React 18, TypeScript |
+| Styling | TailwindCSS |
+| State | Zustand + React Query |
+| Forms | React Hook Form + Zod |
+| HTTP | Axios (interceptors from `frontend-base`) |
+| Charts | ECharts / Recharts |
+| i18n | next-intl |
+| Testing | Vitest (unit), Playwright (E2E) |
+| Base Package | `@your-scope/points-mall-base` (NPM) |
+
+## Local Development
+
+```bash
+pnpm install
+cp .env.local.example .env.local
+pnpm run dev
+# App: http://localhost:3000
+```
+
+## Key Environment Variables
+
+```env
+NEXT_PUBLIC_BFF_URL=http://localhost:4000
+NEXT_PUBLIC_APP_ENV=development
+NEXTAUTH_SECRET=your-nextauth-secret
+GITHUB_CLIENT_ID=your-github-client-id
+```
