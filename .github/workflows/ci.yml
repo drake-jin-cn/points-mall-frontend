@@ -1,0 +1,45 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  ci:
+    name: Frontend (Next.js)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # frontend depends on frontend-base via workspace:* — check it out alongside
+      - name: Checkout frontend-base
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ github.repository_owner }}/points-mall-frontend-base
+          path: points-mall-frontend-base
+
+      - uses: pnpm/action-setup@v4
+        with: { version: 9 }
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+
+      # Create a temporary pnpm workspace that includes both packages
+      - name: Setup pnpm workspace
+        run: |
+          cat > pnpm-workspace.yaml << 'EOF'
+          packages:
+            - '.'
+            - './points-mall-frontend-base'
+          EOF
+
+      - run: pnpm install --no-frozen-lockfile
+      - run: pnpm --filter points-mall-frontend-base build
+      - run: pnpm lint
+      - run: pnpm format:check
+      - run: pnpm build

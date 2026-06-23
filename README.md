@@ -50,7 +50,14 @@ The App Router's `route.ts` API routes also mean the BFF health check lives in t
 | Charts | ECharts / Recharts |
 | i18n | next-intl |
 | Testing | Vitest (unit), Playwright (E2E) |
-| Base Package | `@your-scope/points-mall-base` (NPM) |
+| Base Package | `@points-mall/frontend-base` (npm) |
+
+## Docker
+
+```bash
+docker build -t points-mall-frontend .
+docker run --env-file .env.production -p 3003:3003 points-mall-frontend
+```
 
 ## Local Development
 
@@ -58,8 +65,18 @@ The App Router's `route.ts` API routes also mean the BFF health check lives in t
 pnpm install
 cp .env.local.example .env.local
 pnpm run dev
-# App: http://localhost:3000
+# App: http://localhost:3003
 ```
+
+## Code Quality
+
+```bash
+pnpm lint          # ESLint
+pnpm format:check  # Prettier (check only)
+pnpm format        # Prettier (auto-fix)
+```
+
+Formatting and linting run automatically on staged files via the pre-commit hook. CI runs on every PR via `.github/workflows/ci.yml` in this repository.
 
 ## Key Environment Variables
 
