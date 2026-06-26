@@ -1,4 +1,4 @@
-import type { AxiosInstance } from 'axios'
+import type { AxiosInstance, AxiosResponse } from 'axios'
 import { toast } from 'sonner'
 import type { ApiResponse } from '@/lib/http/types'
 
@@ -13,8 +13,8 @@ export function applyErrorInterceptor(instance: AxiosInstance): void {
         }
         return Promise.reject(body)
       }
-      // Unwrap envelope — callers receive data.data directly
-      return body.data
+      // Intentional envelope unwrap: callers receive body.data directly
+      return body.data as unknown as AxiosResponse
     },
     (error) => {
       // 401 is handled by auth interceptor — skip generic toast
