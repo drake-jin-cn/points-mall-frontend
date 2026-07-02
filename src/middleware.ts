@@ -1,7 +1,7 @@
 import { type NextRequest, NextResponse } from 'next/server'
 
 // Public routes that don't require auth
-const PUBLIC_PATHS = ['/login', '/register', '/forgot-password']
+const PUBLIC_PATHS = ['/login', '/register', '/forgot-password', '/auth/github/callback']
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl

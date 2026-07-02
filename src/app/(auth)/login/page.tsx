@@ -1,9 +1,11 @@
 'use client'
 
+import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
+import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -18,9 +20,17 @@ const loginSchema = z.object({
 
 type LoginForm = z.infer<typeof loginSchema>
 
+const OAUTH_ERROR_MESSAGES: Record<string, string> = {
+  oauth_state_invalid: 'GitHub 登录状态无效，请重试',
+  oauth_cancelled: 'GitHub 登录已取消',
+  oauth_failed: 'GitHub 登录失败，请稍后重试',
+}
+
 export default function LoginPage() {
   const router = useRouter()
+  const searchParams = useSearchParams()
   const setUser = useAuthStore((s) => s.setUser)
+  const githubAuthUrl = `${process.env.NEXT_PUBLIC_BFF_URL}/auth/github`
 
   const {
     register,
@@ -35,6 +45,20 @@ export default function LoginPage() {
     setUser(user as unknown as AuthUser)
     router.push('/dashboard')
   }
+
+  const onGithubLogin = () => {
+    window.location.href = githubAuthUrl
+  }
+
+  useEffect(() => {
+    const error = searchParams.get('error')
+    if (!error) return
+
+    const message = OAUTH_ERROR_MESSAGES[error]
+    if (!message) return
+
+    toast.error(message)
+  }, [searchParams])
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-slate-900 via-purple-950 to-slate-900 p-4">
@@ -85,6 +109,14 @@ export default function LoginPage() {
             className="w-full bg-purple-600 text-white hover:bg-purple-500 disabled:opacity-60"
           >
             {isSubmitting ? '登录中…' : '登录'}
+          </Button>
+
+          <Button
+            type="button"
+            onClick={onGithubLogin}
+            className="w-full border border-white/15 bg-white/5 text-white hover:bg-white/10"
+          >
+            使用 GitHub 登录
           </Button>
         </form>
       </div>
