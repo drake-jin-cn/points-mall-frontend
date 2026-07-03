@@ -1,9 +1,9 @@
 'use client'
 
-import { useEffect } from 'react'
+import { Suspense, useEffect } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 
-export default function GitHubCallbackPage() {
+function GitHubCallbackContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
 
@@ -28,5 +28,13 @@ export default function GitHubCallbackPage() {
         <p className="text-sm font-medium text-white/80">正在处理 GitHub 登录…</p>
       </div>
     </div>
+  )
+}
+
+export default function GitHubCallbackPage() {
+  return (
+    <Suspense>
+      <GitHubCallbackContent />
+    </Suspense>
   )
 }

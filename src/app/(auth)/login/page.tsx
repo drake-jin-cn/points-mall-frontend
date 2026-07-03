@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect } from 'react'
+import { Suspense, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
@@ -26,9 +26,24 @@ const OAUTH_ERROR_MESSAGES: Record<string, string> = {
   oauth_failed: 'GitHub 登录失败，请稍后重试',
 }
 
-export default function LoginPage() {
-  const router = useRouter()
+function OAuthErrorToast() {
   const searchParams = useSearchParams()
+
+  useEffect(() => {
+    const error = searchParams.get('error')
+    if (!error) return
+
+    const message = OAUTH_ERROR_MESSAGES[error]
+    if (!message) return
+
+    toast.error(message)
+  }, [searchParams])
+
+  return null
+}
+
+function LoginForm() {
+  const router = useRouter()
   const setUser = useAuthStore((s) => s.setUser)
   const githubAuthUrl = `${process.env.NEXT_PUBLIC_BFF_URL}/auth/github`
 
@@ -49,16 +64,6 @@ export default function LoginPage() {
   const onGithubLogin = () => {
     window.location.href = githubAuthUrl
   }
-
-  useEffect(() => {
-    const error = searchParams.get('error')
-    if (!error) return
-
-    const message = OAUTH_ERROR_MESSAGES[error]
-    if (!message) return
-
-    toast.error(message)
-  }, [searchParams])
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-slate-900 via-purple-950 to-slate-900 p-4">
@@ -121,5 +126,16 @@ export default function LoginPage() {
         </form>
       </div>
     </div>
+  )
+}
+
+export default function LoginPage() {
+  return (
+    <>
+      <Suspense>
+        <OAuthErrorToast />
+      </Suspense>
+      <LoginForm />
+    </>
   )
 }
