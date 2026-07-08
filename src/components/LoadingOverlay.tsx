@@ -1,11 +1,11 @@
-'use client'
+'use client';
 
-import { useLoadingStore } from '@/store/useLoadingStore'
+import { useLoadingStore } from '@/store/useLoadingStore';
 
 export function LoadingOverlay() {
-  const isLoading = useLoadingStore((s) => s.isLoading)
+  const isLoading = useLoadingStore((s) => s.isLoading);
 
-  if (!isLoading) return null
+  if (!isLoading) return null;
 
   return (
     <div
@@ -18,5 +18,5 @@ export function LoadingOverlay() {
         <span className="text-sm font-medium text-white/80">加载中…</span>
       </div>
     </div>
-  )
+  );
 }

@@ -1,17 +1,17 @@
-import { create } from 'zustand'
-import { persist } from 'zustand/middleware'
+import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
 
 export interface AuthUser {
-  id: number
-  name: string
-  email: string
-  roles: string[]
+  id: number;
+  name: string;
+  email: string;
+  roles: string[];
 }
 
 interface AuthState {
-  user: AuthUser | null
-  setUser: (user: AuthUser) => void
-  clearUser: () => void
+  user: AuthUser | null;
+  setUser: (user: AuthUser) => void;
+  clearUser: () => void;
 }
 
 export const useAuthStore = create<AuthState>()(
@@ -25,12 +25,12 @@ export const useAuthStore = create<AuthState>()(
       name: 'auth-store',
       storage: {
         getItem: (name) => {
-          const value = sessionStorage.getItem(name)
-          return value ? JSON.parse(value) : null
+          const value = sessionStorage.getItem(name);
+          return value ? JSON.parse(value) : null;
         },
         setItem: (name, value) => sessionStorage.setItem(name, JSON.stringify(value)),
         removeItem: (name) => sessionStorage.removeItem(name),
       },
     },
   ),
-)
+);

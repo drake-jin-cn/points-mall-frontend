@@ -1,17 +1,17 @@
-import type { AxiosRequestConfig } from 'axios'
+import type { AxiosRequestConfig } from 'axios';
 
 export interface ApiResponse<T = unknown> {
-  code: string
-  message: string
-  data: T
-  traceId?: string
+  code: string;
+  message: string;
+  data: T;
+  traceId?: string;
 }
 
 // Extend AxiosRequestConfig to support per-request silent flag
 declare module 'axios' {
   interface AxiosRequestConfig {
-    silent?: boolean
+    silent?: boolean;
   }
 }
 
-export type { AxiosRequestConfig }
+export type { AxiosRequestConfig };

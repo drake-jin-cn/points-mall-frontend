@@ -4,20 +4,20 @@
 
 ## Pages & Modules
 
-| Module | Key Pages | Rendering |
-|--------|-----------|----------|
-| Auth | Login (email + GitHub OAuth), callback | CSR |
-| Employee Dashboard | Personal points balance, attendance status, announcement | SSR |
-| Attendance | Check-in, attendance history, calendar view | SSR |
-| Points Ledger | Transaction history, type filter, date range | SSR |
-| Points Mall | Product grid, search, category filter | ISR (5 min revalidate) |
-| Product Detail | Product info, stock, redeem action | ISR |
-| Order Center | My orders, status timeline | SSR |
-| Notification Center | Bell dropdown, notification list, mark-as-read | CSR |
-| Admin Dashboard | KPI banner, 4 chart panels, date range picker | SSR |
-| Admin Management | Employee list, attendance admin, points manual adjustment | SSR |
-| System Config | Dynamic menu editor, announcements, feature flags | SSR |
-| Data Reports | Chart panels, export button (Excel) | SSR |
+| Module              | Key Pages                                                 | Rendering              |
+| ------------------- | --------------------------------------------------------- | ---------------------- |
+| Auth                | Login (email + GitHub OAuth), callback                    | CSR                    |
+| Employee Dashboard  | Personal points balance, attendance status, announcement  | SSR                    |
+| Attendance          | Check-in, attendance history, calendar view               | SSR                    |
+| Points Ledger       | Transaction history, type filter, date range              | SSR                    |
+| Points Mall         | Product grid, search, category filter                     | ISR (5 min revalidate) |
+| Product Detail      | Product info, stock, redeem action                        | ISR                    |
+| Order Center        | My orders, status timeline                                | SSR                    |
+| Notification Center | Bell dropdown, notification list, mark-as-read            | CSR                    |
+| Admin Dashboard     | KPI banner, 4 chart panels, date range picker             | SSR                    |
+| Admin Management    | Employee list, attendance admin, points manual adjustment | SSR                    |
+| System Config       | Dynamic menu editor, announcements, feature flags         | SSR                    |
+| Data Reports        | Chart panels, export button (Excel)                       | SSR                    |
 
 ## Key Frontend Capabilities
 
@@ -40,17 +40,17 @@ The App Router's `route.ts` API routes also mean the BFF health check lives in t
 
 ## Tech Stack
 
-| Layer | Technology |
-|-------|------------|
-| Framework | Next.js 16 (App Router), React 19, TypeScript 5.8 |
-| Styling | TailwindCSS |
-| State | Zustand + React Query |
-| Forms | React Hook Form + Zod |
-| HTTP | Axios (interceptors from `frontend-base`) |
-| Charts | ECharts / Recharts |
-| i18n | next-intl |
-| Testing | Vitest (unit), Playwright (E2E) |
-| Base Package | `@points-mall/frontend-base` (npm) |
+| Layer        | Technology                                        |
+| ------------ | ------------------------------------------------- |
+| Framework    | Next.js 16 (App Router), React 19, TypeScript 5.8 |
+| Styling      | TailwindCSS                                       |
+| State        | Zustand + React Query                             |
+| Forms        | React Hook Form + Zod                             |
+| HTTP         | Axios (interceptors from `frontend-base`)         |
+| Charts       | ECharts / Recharts                                |
+| i18n         | next-intl                                         |
+| Testing      | Vitest (unit), Playwright (E2E)                   |
+| Base Package | `@points-mall/frontend-base` (npm)                |
 
 ## Docker
 

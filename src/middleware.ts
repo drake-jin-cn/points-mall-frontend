@@ -1,28 +1,28 @@
-import { type NextRequest, NextResponse } from 'next/server'
+import { type NextRequest, NextResponse } from 'next/server';
 
 // Public routes that don't require auth
-const PUBLIC_PATHS = ['/login', '/register', '/forgot-password', '/auth/github/callback']
+const PUBLIC_PATHS = ['/login', '/register', '/forgot-password', '/auth/github/callback'];
 
 export function middleware(request: NextRequest) {
-  const { pathname } = request.nextUrl
+  const { pathname } = request.nextUrl;
 
   const isPublic = PUBLIC_PATHS.some(
     (path) => pathname === path || pathname.startsWith(path + '/'),
-  )
+  );
 
   if (isPublic) {
-    return NextResponse.next()
+    return NextResponse.next();
   }
 
   // Edge Runtime: can only check cookie existence (cannot verify JWT signature)
-  const hasToken = request.cookies.has('access_token')
+  const hasToken = request.cookies.has('access_token');
   if (!hasToken) {
-    const loginUrl = new URL('/login', request.url)
-    loginUrl.searchParams.set('from', pathname)
-    return NextResponse.redirect(loginUrl)
+    const loginUrl = new URL('/login', request.url);
+    loginUrl.searchParams.set('from', pathname);
+    return NextResponse.redirect(loginUrl);
   }
 
-  return NextResponse.next()
+  return NextResponse.next();
 }
 
 export const config = {
@@ -36,4 +36,4 @@ export const config = {
      */
     '/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
   ],
-}
+};
