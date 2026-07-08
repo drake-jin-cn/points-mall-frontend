@@ -2,7 +2,7 @@ import { describe, it, expect, beforeEach } from 'vitest';
 import { act } from '@testing-library/react';
 import { useAuthStore } from '@/store/useAuthStore';
 
-const mockUser = { id: 1, name: 'Alice', email: 'alice@example.com', roles: ['employee'] };
+const mockUser = { id: 1, name: 'Alice', email: 'alice@example.com', roles: ['EMPLOYEE'] };
 
 beforeEach(() => {
   useAuthStore.setState({ user: null });

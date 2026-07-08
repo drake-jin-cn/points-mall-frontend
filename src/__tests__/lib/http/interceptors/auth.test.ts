@@ -9,7 +9,7 @@ vi.mock('next/navigation', () => ({
   redirect: (path: string) => mockRedirect(path),
 }));
 
-const mockUser = { id: 1, name: 'Alice', email: 'alice@example.com', roles: ['employee'] };
+const mockUser = { id: 1, name: 'Alice', email: 'alice@example.com', roles: ['EMPLOYEE'] };
 
 beforeEach(() => {
   vi.clearAllMocks();
