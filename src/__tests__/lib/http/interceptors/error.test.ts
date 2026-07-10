@@ -31,13 +31,13 @@ describe('applyErrorInterceptor', () => {
     applyErrorInterceptor(instance);
     mock.onGet('/err').reply(200, {
       code: 'bff-2001',
-      message: '用户不存在',
+      message: 'User not found',
       data: null,
       traceId: 'abc-123',
     });
 
     await expect(instance.get('/err')).rejects.toMatchObject({ code: 'bff-2001' });
-    expect(toast.error).toHaveBeenCalledWith('用户不存在');
+    expect(toast.error).toHaveBeenCalledWith('User not found');
   });
 
   it('logs traceId to console on business error', async () => {
@@ -64,7 +64,7 @@ describe('applyErrorInterceptor', () => {
     mock.onGet('/network').reply(500);
 
     await expect(instance.get('/network')).rejects.toBeDefined();
-    expect(toast.error).toHaveBeenCalledWith('网络异常，请稍后重试');
+    expect(toast.error).toHaveBeenCalledWith('Network error, please try again');
   });
 
   it('does NOT show toast on 401 (handled by auth interceptor)', async () => {

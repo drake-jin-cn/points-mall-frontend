@@ -21,7 +21,7 @@ export function applyErrorInterceptor(instance: AxiosInstance): void {
       if (error.response?.status === 401) {
         return Promise.reject(error);
       }
-      toast.error('网络异常，请稍后重试');
+      toast.error('Network error, please try again');
       return Promise.reject(error);
     },
   );

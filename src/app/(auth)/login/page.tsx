@@ -14,16 +14,19 @@ import { useAuthStore } from '@/store/useAuthStore';
 import type { AuthUser } from '@/store/useAuthStore';
 
 const loginSchema = z.object({
-  email: z.string().email('请输入有效的邮箱地址'),
-  password: z.string().min(6, '密码至少 6 位'),
+  email: z.string().email('Please enter a valid email address'),
+  password: z.string().min(6, 'Password must be at least 6 characters'),
 });
 
 type LoginForm = z.infer<typeof loginSchema>;
 
 const OAUTH_ERROR_MESSAGES: Record<string, string> = {
-  oauth_state_invalid: 'GitHub 登录状态无效，请重试',
-  oauth_cancelled: 'GitHub 登录已取消',
-  oauth_failed: 'GitHub 登录失败，请稍后重试',
+  oauth_state_invalid: 'GitHub login state invalid, please try again',
+  oauth_cancelled: 'GitHub login cancelled',
+  oauth_failed: 'GitHub login failed, please try again',
+  sso_state_invalid: 'SSO login state invalid, please try again',
+  sso_cancelled: 'SSO login cancelled',
+  sso_failed: 'SSO login failed, please try again',
 };
 
 function OAuthErrorToast() {
@@ -46,6 +49,7 @@ function LoginForm() {
   const router = useRouter();
   const setUser = useAuthStore((s) => s.setUser);
   const githubAuthUrl = `${process.env.NEXT_PUBLIC_BFF_URL}/auth/github`;
+  const ssoAuthUrl = `${process.env.NEXT_PUBLIC_BFF_URL}/auth/sso`;
 
   const {
     register,
@@ -65,18 +69,22 @@ function LoginForm() {
     window.location.href = githubAuthUrl;
   };
 
+  const onSsoLogin = () => {
+    window.location.href = ssoAuthUrl;
+  };
+
   return (
     <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-slate-900 via-purple-950 to-slate-900 p-4">
       <div className="w-full max-w-sm rounded-2xl border border-white/10 bg-white/5 p-8 shadow-2xl backdrop-blur-xl">
         <div className="mb-8 text-center">
-          <h1 className="text-2xl font-bold tracking-tight text-white">积分商城</h1>
-          <p className="mt-1 text-sm text-white/50">登录你的账户</p>
+          <h1 className="text-2xl font-bold tracking-tight text-white">Points Mall</h1>
+          <p className="mt-1 text-sm text-white/50">Sign in to your account</p>
         </div>
 
         <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-5">
           <div className="space-y-1.5">
             <Label htmlFor="email" className="text-white/70">
-              邮箱
+              Email
             </Label>
             <Input
               id="email"
@@ -91,7 +99,7 @@ function LoginForm() {
 
           <div className="space-y-1.5">
             <Label htmlFor="password" className="text-white/70">
-              密码
+              Password
             </Label>
             <Input
               id="password"
@@ -109,7 +117,7 @@ function LoginForm() {
             disabled={isSubmitting}
             className="w-full bg-purple-600 text-white hover:bg-purple-500 disabled:opacity-60"
           >
-            {isSubmitting ? '登录中…' : '登录'}
+            {isSubmitting ? 'Signing in…' : 'Sign in'}
           </Button>
 
           <Button
@@ -117,7 +125,15 @@ function LoginForm() {
             onClick={onGithubLogin}
             className="w-full border border-white/15 bg-white/5 text-white hover:bg-white/10"
           >
-            使用 GitHub 登录
+            Sign in with GitHub
+          </Button>
+
+          <Button
+            type="button"
+            onClick={onSsoLogin}
+            className="w-full border border-blue-400/30 bg-blue-500/10 text-blue-300 hover:bg-blue-500/20"
+          >
+            Enterprise SSO
           </Button>
         </form>
       </div>

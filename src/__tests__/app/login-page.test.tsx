@@ -44,7 +44,7 @@ describe('LoginPage', () => {
 
     render(<LoginPage />);
 
-    await user.click(screen.getByRole('button', { name: '使用 GitHub 登录' }));
+    await user.click(screen.getByRole('button', { name: 'Sign in with GitHub' }));
 
     expect(window.location.href).toBe('http://bff.example.com/auth/github');
   });
@@ -55,7 +55,7 @@ describe('LoginPage', () => {
     render(<LoginPage />);
 
     await waitFor(() => {
-      expect(mocks.toastError).toHaveBeenCalledWith('GitHub 登录已取消');
+      expect(mocks.toastError).toHaveBeenCalledWith('GitHub login cancelled');
     });
   });
 });
