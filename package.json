@@ -27,7 +27,7 @@
   },
   "dependencies": {
     "@base-ui/react": "^1.6.0",
-    "@drake-jin-cn/frontend-base": "^0.1.1",
+    "@drake-jin-cn/frontend-base": "^0.2.0",
     "@hookform/resolvers": "^5.4.0",
     "@tailwindcss/postcss": "^4.3.1",
     "axios": "^1.18.1",

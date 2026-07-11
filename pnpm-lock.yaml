@@ -12,8 +12,8 @@ importers:
         specifier: ^1.6.0
         version: 1.6.0(@types/react@19.2.17)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       '@drake-jin-cn/frontend-base':
-        specifier: ^0.1.1
-        version: 0.1.1(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+        specifier: ^0.2.0
+        version: 0.2.0(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       '@hookform/resolvers':
         specifier: ^5.4.0
         version: 5.4.0(react-hook-form@7.80.0(react@19.2.7))
@@ -370,8 +370,8 @@ packages:
   '@dotenvx/primitives@0.8.0':
     resolution: {integrity: sha512-VYJy0uhFm9zTJ1TxBaW/pA8bjbOM/OttaNMwZ1RHG4JKyRG7DhSdiqD1ipQoAyoD22olUtxbP78W9xY3Wd11bg==}
 
-  '@drake-jin-cn/frontend-base@0.1.1':
-    resolution: {integrity: sha512-a1hDyyHczkcAW9t3L/h8VggMXMkJMaVOJaVDiJiUw/PrlDDiXXvWAyOxFkXegb651gXzMVGeXTGAkrulkItuwA==, tarball: https://npm.pkg.github.com/download/@drake-jin-cn/frontend-base/0.1.1/637f36f754899c21d3b9349ddf0e3205564ca915}
+  '@drake-jin-cn/frontend-base@0.2.0':
+    resolution: {integrity: sha512-2tkuqws2+1ht0fA+2W4XsvIS4wirpeEoNkWxh3DuUtZgu6NYHBa8veVpSTztJfLDu4Ru0EhF8HhIMgZI4WibyA==, tarball: https://npm.pkg.github.com/download/@drake-jin-cn/frontend-base/0.2.0/343607189c7525e172869b01ed6f5782ecbb7cc4}
     peerDependencies:
       react: ^19.0.0
       react-dom: ^19.0.0
@@ -4209,7 +4209,7 @@ snapshots:
 
   '@dotenvx/primitives@0.8.0': {}
 
-  '@drake-jin-cn/frontend-base@0.1.1(react-dom@19.2.7(react@19.2.7))(react@19.2.7)':
+  '@drake-jin-cn/frontend-base@0.2.0(react-dom@19.2.7(react@19.2.7))(react@19.2.7)':
     dependencies:
       react: 19.2.7
       react-dom: 19.2.7(react@19.2.7)
